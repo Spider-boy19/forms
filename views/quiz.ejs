@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+    <% 
+    let questionCount = totalQuestions ?? 0;
+    let score = totalCorrect ?? 0;
+    let randomIntex = parseInt(Math.random()*chosen.lenth);
+    let chosenWord = chosenWords[randomIntex];
+    let [correctWord, correctpart, correctDef] = chosen.split(\t);
+     %>
+     <h1><%= chosenWord %></h1>
+     <h2><%= correctWord %> - <% correctpart %> </h2>
+     <ol>
+        <% for (currentWord of chosenWords) { %>
+            let [word, part, def] = currentWord.split('\t'); 
+      <%  } %>
+     </ol>
+</body>
+</html>
