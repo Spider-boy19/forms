@@ -3,12 +3,55 @@ const router = express.Router();
 const {readFile} = require('fs').promises;
 
 // Work goes here
+let users = [];
+let nextId = 1;
+
+router.get('/', (req, res) =>{ 
+    res.render("users", {users});
+});
+
+router.get("/new", (req, res) => {
+    res.render("new");
+});
 
 router.get("/",  async (req, res)=>{
     let chosenWords = await getWords();
     //console.log(chosenWords);
     res.render('quiz', {chosenWords});
 })
+
+router.post("/", (req, res)=>{
+    console.log(req.body);
+    let {userChoice, correctDef, totalQuestions, totalCorrect} = req.body;
+    let {first, last, gender, age} = req.body;
+    if (userChoice === correctDef)
+        {
+            console.log("User guessed Correctly!")
+            let score = totalCorrect;
+        }
+        let total = totalQuestions+1;
+        let newUser = {
+            id: nextId++,
+            first,
+            last,
+            gender,
+            age: Number(age)
+        };
+        users.push(newUser);
+
+        res.redirect("/users")
+        
+});
+
+router.get("/:id", (req, res) =>{
+    let user = users.find(u => u.id == req.params.id);
+
+    if (!user) {
+        return res.status(404).send("User not found");
+    }
+
+    res.render("user", { user });
+});
 
 let getWords = async ()=>{
     let randomPart = getRandomPart();

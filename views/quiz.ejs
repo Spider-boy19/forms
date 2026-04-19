@@ -12,13 +12,30 @@
         let [correctWord, correctpart, correctDef] = chosenWord.split('\t');
      %>
      <h1><%= chosenWord %></h1>
+     <% if (questionCount === 0){ %>
+        <h1> Welcome to the word quiz! </h1>
+     <% } else { %>
+        <h1> Score: <%= score %> / <%= questionCount %></h1>
+    <% } %>
      <h2><%= correctWord %> - <%= correctpart %> </h2>
+     <form action="quiz" method="post">
      <ol>
         <% for (currentWord of chosenWords) { 
             let [word, part, def] = currentWord.split('\t'); 
             %>
-            
+            <li> 
+                <label>
+                <input type="radio" name="userChoice" value="<% def %> ">
+                <%= def %> 
+                </label> 
+                </li>
       <%  } %>
      </ol>
+     <input type="submit" value="submit Answer!">
+     <input type="hidden" name="correctDef"value="<%= correctDef %>">
+     <input type="hidden" name="totalQuestions"value="<%= questionCount %>">
+     <input type="hidden" name="totalCorrect"value="<%= score %>">
+     
+      </form>
 </body>
 </html>
