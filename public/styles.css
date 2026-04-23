@@ -1,0 +1,32 @@
+/* General page styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+/* Correct answer styling */
+.correct {
+    color: green;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+/* Incorrect answer styling */
+.incorrect {
+    color: red;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+/* Optional: style the list */
+li {
+    margin-bottom: 10px;
+}
+
+/* Optional: button styling */
+input[type="submit"] {
+    margin-top: 15px;
+    padding: 8px 12px;
+    font-size: 16px;
+    cursor: pointer;
+}

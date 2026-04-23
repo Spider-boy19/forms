@@ -3,7 +3,23 @@
 <head>
     <title>Document</title>
 </head>
+
+<head>
+    <title>Word Quiz</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
 <body>
+    <link rel="stylesheet" href="/styles.css">
+    <% if (typeof isCorrect !== "undefined") { %>
+    <% if (isCorrect === "true") { %>
+        <p class="correct">✅ Correct!</p>
+    <% } else { %>
+        <p class="incorrect">❌ Incorrect!</p>
+        <p>The correct definition was: <strong><%= correctDef %></strong></p>
+    <% } %>
+<% } %>
+
     <% 
         let questionCount = locals.totalQuestions ?? 0;
         let score = locals.totalCorrect ?? 0;
@@ -25,7 +41,7 @@
             %>
             <li> 
                 <label>
-                <input type="radio" name="userChoice" value="<% def %> ">
+                <input type="radio" name="userChoice" value="<%= def %> ">
                 <%= def %> 
                 </label> 
                 </li>
@@ -33,8 +49,8 @@
      </ol>
      <input type="submit" value="submit Answer!">
      <input type="hidden" name="correctDef"value="<%= correctDef %>">
-     <input type="hidden" name="totalQuestions"value="<%= questionCount %>">
-     <input type="hidden" name="totalCorrect"value="<%= score %>">
+     <input type="hidden" name="totalQuestions" value="<%= questionCount %>">
+     <input type="hidden" name="totalCorrect" value="<%= score %>">
      
       </form>
 </body>

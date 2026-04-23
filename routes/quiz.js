@@ -14,33 +14,38 @@ router.get("/new", (req, res) => {
     res.render("new");
 });
 
-router.get("/",  async (req, res)=>{
+router.get("/", async (req, res) => {
     let chosenWords = await getWords();
-    //console.log(chosenWords);
-    res.render('quiz', {chosenWords});
-})
 
-router.post("/", (req, res)=>{
-    console.log(req.body);
-    let {userChoice, correctDef, totalQuestions, totalCorrect} = req.body;
-    let {first, last, gender, age} = req.body;
-    if (userChoice === correctDef)
-        {
-            console.log("User guessed Correctly!")
-            let score = totalCorrect;
-        }
-        let total = totalQuestions+1;
-        let newUser = {
-            id: nextId++,
-            first,
-            last,
-            gender,
-            age: Number(age)
-        };
-        users.push(newUser);
+    let totalQuestions = parseInt(req.query.totalQuestions) || 0;
+    let totalCorrect = parseInt(req.query.totalCorrect) || 0;
+    let isCorrect = req.query.isCorrect;
+    let correctDef = req.query.correctDef;
 
-        res.redirect("/users")
-        
+    res.render("quiz", {
+        chosenWords,
+        totalQuestions,
+        totalCorrect,
+        isCorrect,
+        correctDef
+    });
+});
+
+router.post("/", (req, res) => {
+    let { userChoice, correctDef, totalQuestions, totalCorrect } = req.body;
+
+    totalQuestions = parseInt(totalQuestions) || 0;
+    totalCorrect = parseInt(totalCorrect) || 0;
+
+    let isCorrect = userChoice === correctDef;
+
+    if (isCorrect) {
+        totalCorrect++;
+    }
+
+    totalQuestions++;
+
+    res.redirect(`/quiz?totalQuestions=${totalQuestions}&totalCorrect=${totalCorrect}&isCorrect=${isCorrect}&correctDef=${encodeURIComponent(correctDef)}`);
 });
 
 router.get("/:id", (req, res) =>{
