@@ -6,13 +6,7 @@ const {readFile} = require('fs').promises;
 let users = [];
 let nextId = 1;
 
-router.get('/', (req, res) =>{ 
-    res.render("users", {users});
-});
 
-router.get("/new", (req, res) => {
-    res.render("new");
-});
 
 router.get("/", async (req, res) => {
     let chosenWords = await getWords();
@@ -32,20 +26,8 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", (req, res) => {
-    let { userChoice, correctDef, totalQuestions, totalCorrect } = req.body;
-
-    totalQuestions = parseInt(totalQuestions) || 0;
-    totalCorrect = parseInt(totalCorrect) || 0;
-
-    let isCorrect = userChoice === correctDef;
-
-    if (isCorrect) {
-        totalCorrect++;
-    }
-
-    totalQuestions++;
-
-    res.redirect(`/quiz?totalQuestions=${totalQuestions}&totalCorrect=${totalCorrect}&isCorrect=${isCorrect}&correctDef=${encodeURIComponent(correctDef)}`);
+    console.log(req.body);
+    //let{userChoice, correctDef, totalQuestions, totalCorrect}
 });
 
 router.get("/:id", (req, res) =>{
