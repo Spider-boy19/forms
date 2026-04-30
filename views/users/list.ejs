@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <H1>Our Current Users</H1>
+    <table>
+        <ul style="border:2px solid black; border-collapse: collapse;">
+        <% users.forEach(function(user){ %>
+            <li><%= user.firstName %> <%= user.lastName %></li>
+       <% }) %>
+        </ul>
+</html>
