@@ -27,7 +27,21 @@ router.get("/", async (req, res) => {
 
 router.post("/", (req, res) => {
     console.log(req.body);
-    //let{userChoice, correctDef, totalQuestions, totalCorrect}
+    let {userChoice, correctDef, totalQuestions, totalCorrect} = req.body;
+
+    totalQuestions = parseInt(req.query.totalQuestions) || 0;
+    totalCorrect = parseInt(req.query.totalCorrect) || 0;
+
+    totalQuestions++;
+
+    let isCorrect = "false"
+
+    if (userChoice.trim() === correctDef.trim()){
+        totalCorrect++
+        isCorrect = "true"
+    }
+
+    res.redirect(`/quiz?totalQuestions=${totalQuestions}&totalCorrect=${totalCorrect}&isCorrect=${isCorrect}&correctDef=${encodeURIComponent(correctDef)}`)
 });
 
 router.get("/:id", (req, res) =>{
@@ -62,7 +76,7 @@ let getWords = async ()=>{
 }
 
 let getRandomPart = ()=>{
-    let parts = ['noun', 'verb', 'adjetive'];
+    let parts = ['noun', 'verb', 'adjective'];
     let randomIndex = Math.floor(Math.random()*parts.length);
     let randomPart = parts[randomIndex];
     return randomPart;

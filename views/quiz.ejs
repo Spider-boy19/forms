@@ -8,6 +8,13 @@
     <title>Word Quiz</title>
     <link rel="stylesheet" href="/styles.css">
 </head>
+    <% 
+        let questionCount = locals.totalQuestions ?? 0;
+        let score = locals.totalCorrect ?? 0;
+        let randomIndex = parseInt(Math.random()*chosenWords.length);
+        let chosenWord = chosenWords[randomIndex];
+        let [correctWord, correctpart, correctDef] = chosenWord.split('\t');
+     %>
 
 <body>
     <link rel="stylesheet" href="/styles.css">
@@ -20,16 +27,9 @@
     <% } %>
 <% } %>
 
-    <% 
-        let questionCount = locals.totalQuestions ?? 0;
-        let score = locals.totalCorrect ?? 0;
-        let randomIndex = parseInt(Math.random()*chosenWords.length);
-        let chosenWord = chosenWords[randomIndex];
-        let [correctWord, correctpart, correctDef] = chosenWord.split('\t');
-     %>
-     <h1><%= chosenWord %></h1>
      <% if (questionCount === 0){ %>
         <h1> Welcome to the word quiz! </h1>
+        <h2>What is the definition of this word?</h2>
      <% } else { %>
         <h1> Score: <%= score %> / <%= questionCount %></h1>
     <% } %>
@@ -41,7 +41,7 @@
             %>
             <li> 
                 <label>
-                <input type="radio" name="userChoice" value="<%= def %> ">
+                <input type="radio" name="userChoice" value="<%= def %>" required>
                 <%= def %> 
                 </label> 
                 </li>
